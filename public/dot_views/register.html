@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lobster">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Ogen's Registration Form</h1>
+        <div class="registration-form-container">
+            <form action="/register" method="post">
+                <label for="username-text-field">Username:</label>
+                <input type="text" name="username" id="username-text-field" [[? model.username ]]value=[[=model.username]][[?]] required></input>
+                </br>
+                <label for="password-text-field">Password:</label>
+                <input type="password" name="password" id="password-text-field" required></input>
+                </br>
+                <label for="first-name-text-field">First name:</label>
+                <input type="text" name="firstName" id="first-name-text-field" [[? model.firstName ]]value=[[=model.firstName]][[?]] required></input>
+                </br>
+                <label for="last-name-text-field">Last name:</label>
+                <input type="text" name="lastName" id="last-name-text-field" [[? model.lastName ]]value=[[=model.lastName]][[?]] required></input>
+                </br>
+                <label for="date-of-birth-field">Date of birth:</label>
+                <input type="date" name="dateOfBirth" id="date-of-birth-field" [[? model.dateOfBirth ]]value=[[=model.dateOfBirth]][[?]] required></input>
+                </br>
+                <label for="email-field">Email:</label>
+                <input type="email" name="email" id="email-field" [[? model.email ]]value=[[=model.email]][[?]] required></input>
+                </br>
+                <label for="mobile-number-field">Mobile number:</label>
+                <input type="tel" name="mobileNumber" id="mobile-number-field" title="Must only contain numbers." pattern="[0-9]+" [[? model.mobileNumber ]]value=[[=model.mobileNumber]][[?]] required></input>
+                </br>
+                <label for="favourite-website-field">Favourite website:</label>
+                <input type="url" name="favouriteWebsite" id="favourite-website-field" [[? model.favouriteWebsite ]]value=[[=model.favouriteWebsite]][[?]] required></input>
+                </br>
+                <label for="favourite-colour-field">Favourite colour:</label>
+                <input type="color" name="favouriteColour" id="favourite-colour-field" [[? model.favouriteColour ]]value=[[=model.favouriteColour]][[?]] required></input>
+                </br>
+                <input type="submit" value="Register!" />
+            </form>
+        </div>
+
+        [[? model.error ]]
+        <div class="alert alert-danger">
+            [[=model.error]]
+        </div>
+        [[?]]
+    </div>
+</body>
