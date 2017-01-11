@@ -62,34 +62,28 @@ module.exports = function(app) {
     })
 
     app.get('/login', function(req, res, next) {
+        res.render('login', req.flash());
+    });
+
+    app.post('/login', function(req, res, next) {
         passport.authenticate('local', function(err, user, info) {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                var flashMessage = req.flash();
-                if (flashMessage && flashMessage.error) {
-                    req.body.error = flashMessage.error[0];
-                }
+                req.flash('error', info.message);
+                req.flash('username', req.body.username);
 
-                console.log("bad user")
-                res.render('login', req.body);
-                return
+                res.redirect('/login');
+            } else {
+                req.logIn(user, function(err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    return res.redirect('/profile/' + user.username);
+                });
             }
-            req.logIn(user, function(err) {
-                if (err) {
-                    return next(err);
-                }
-                return res.redirect('/profile/' + user.username);
-            });
         })(req, res, next);
-    });
-
-    app.post('/login', passport.authenticate('local', {
-        failureRedirect: '/login',
-        failureFlash: true
-    }), function(req, res) {
-        return res.redirect('/profile/' + req.user.username);
     });
 
     app.get("/register", function(req, res) {
@@ -118,9 +112,8 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/logout', function(req, res) {
-        req.logout(); // TODO logout aint working
-        req.session.destroy();
+    app.post('/logout', function(req, res) {
+        req.logout();
         res.redirect('/home');
     });
 
